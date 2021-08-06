@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1229541</title>
+    <script src=crbug-1229541.js></script>
+    <script>
+function spawnWorker() {
+  new Worker('crbug-1229541.js');
+}
+    </script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1229541</h1>
+    <p>
+      This tests that DevTools properly hits breakpoints when starting a worker.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Set a breakpoint in <code>crbug-1229541.js</code> on line 1</li>
+        <li>Click the <button onclick=spawnWorker()>button</button> to spawn a new worker, DevTools should stop on the previously set breakpoint</li>
+        <li>Click the <button onclick=spawnWorker()>button</button> again to spawn another worker, DevTools should stop on the previously set breakpoint</li>
+      </ol>
+    </p>
+  </body>
+</html>

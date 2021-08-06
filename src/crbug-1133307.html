@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1133307</title>
+    <script src="crbug-1133307.js"></script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1133307</h1>
+
+    <p>
+      This tests that DevTools properly sets breakpoints on startup.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Set a breakpoint in <code>crbug-1133307.js</code> on line 1</li>
+        <li>Open a new tab (optionally closing this tab) and open DevTools</li>
+        <li>Navigate to this page in the new tab</li>
+        <li>DevTools should pause on the breakpoint in <code>crbug-1133307.js</code></li>
+      </ol>
+    </p>
+  </body>
+</html>

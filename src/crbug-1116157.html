@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1116157</title>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1116157</h1>
+    This tests that events are throttled/coalesced even while DevTools is open.
+
+    <h2>Steps</h2>
+    <ol>
+      <li>Move the mouse pointer around, it should show, at most 1 event per frame.</li>
+      <li>Open DevTools</li>
+      <li>Again move the mouse pointer around, and observe that we often get more than 1 event per frame.</li>
+    </ol>
+
+    <h2>Result</h2>
+    <div id="root"></div>
+    <ul id="results">
+    </ul>
+  </body>
+  <script>
+    const root = document.getElementById('root');
+    let events = 0;
+
+    function update() {
+      root.textContent = `${events} event(s) / frame`;
+      if (events > 1) {
+        const results = document.getElementById('results');
+        const result = document.createElement('li');
+        result.textContent = `${events} events / frame`;
+        results.appendChild(result);
+      }
+      events = 0;
+      requestAnimationFrame(update);
+    }
+
+    update();
+
+    // pointermove works too
+    addEventListener("mousemove", () => {
+      events++;
+    });
+  </script>
+</html>

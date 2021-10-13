@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1189192</title>
+    <script src=crbug-1189192.js></script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1189192</h1>
+    <p>
+      This tests that DevTools text editor viewport doesn't scroll unnecessarily when stepping.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Reload the page and wait for DevTools to pause on <code>crbug-1189192.js</code> line 64</li>
+        <li>Press F10 or click on <i>Step over next function</i></li>
+        <li>DevTools should step to line 65 and the viewport of the text editor should not move</li>
+      </ol>
+    </p>
+  </body>
+</html>

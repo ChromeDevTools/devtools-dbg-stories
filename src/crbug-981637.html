@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+td { vertical-align: text-top; }      
+    </style>
+    <title>Repro for crbug.com/981637</title>
+    <script src=crbug-981637.js defer></script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/981637</h1>
+    <p>
+      This illustrates the issue of debugging pending promises.
+    </p>
+
+    <h2>Steps</h2>
+    <ol>
+      <li>Open DevTools Console panel</li>
+      <li>Click <button onclick="foo()">here</button> or <button onclick="bar()">here</button></li>
+      <li>Observe how pending promises appear in the table below and the relevant stack traces are logged to the DevTools Console</li>
+    </ol>
+
+    <h2>Pending promises</h2>
+    <table id=pending-promises border="1">
+      <thead>
+        <td>URL</td>
+        <td>Stack</td>
+      </thead>
+    </table>
+  </body>
+</html>

@@ -6,6 +6,8 @@
       function bar() {
         import('./crbug-1066909.mjs');
         import('./crbug-1066909.mjs').catch(e => console.error(e));
+        fetch('http://bar:123');
+        fetch('http://bar:123').catch(e => console.error(e));
       }
     </script>
   </head>
@@ -22,6 +24,7 @@
         <li>Open DevTools</li>
         <li>Reload the page</li>
         <li>Observe that the uncaught exception links to <code>crbug-1066909.mjs</code> while the logged error does not</li>
+        <li>Also observe that for <code>fetch</code> we have a similar problem where only the uncaught exception shows the link to the Network panel</li>
       </ol>
     </p>
   </body>

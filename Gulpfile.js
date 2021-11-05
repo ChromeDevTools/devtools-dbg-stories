@@ -8,7 +8,7 @@ const DISTDIR = "./dist";
 const SRCDIR = "./src";
 
 const buildAssets = () =>
-  src(`${SRCDIR}/*.{html,ico,js}`)
+  src(`${SRCDIR}/*.{html,ico,js,mjs}`)
     .pipe(dest(`${DISTDIR}`))
     .pipe(connect.reload());
 

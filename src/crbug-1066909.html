@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1066909</title>
+    <script>
+      function bar() {
+        import('./crbug-1066909.mjs');
+        import('./crbug-1066909.mjs').catch(e => console.error(e));
+      }
+    </script>
+  </head>
+  <body onload=bar()>
+    <h1>Repro for crbug.com/1066909</h1>
+    <p>
+      This test illustrates the problem that DevTools does not show
+      relevant information for <code>SyntaxError</code>s logged to
+      the DevTools Console.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Reload the page</li>
+        <li>Observe that the uncaught exception links to <code>crbug-1066909.mjs</code> while the logged error does not</li>
+      </ol>
+    </p>
+  </body>
+</html>

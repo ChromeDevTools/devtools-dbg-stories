@@ -6,9 +6,19 @@ This repository contains a couple of demos for core debugging stories, that need
 
 ## Usage
 
+## TypeScript Projects
+
+```sh
+cd typescript-react
+yarn install
+yarn start
+```
+
+### Simple Test Cases
+
 Clone this repository, and run
 
-```
+```sh
 npm install
 npm start
 ```

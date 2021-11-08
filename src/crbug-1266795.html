@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1266795</title>
+    <script src=crbug-1266795.js defer></script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1266795</h1>
+    <p>
+      This test illustrates the problem that the autocompletion
+      in the DevTools Console does not properly cancel previous
+      attempts.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Reload the page</li>
+        <li>Observe that you're paused on a <code>debugger</code> statement in <code>foo</code> afterwards</li>
+        <li>Type <code>foo8</code> and observe that the autocompletion will suggest <code>foo8</code><i>etch</i> and other hits for a short period of time</li>
+      </ol>
+    </p>
+  </body>
+</html>

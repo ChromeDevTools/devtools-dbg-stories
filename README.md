@@ -6,12 +6,23 @@ This repository contains a couple of demos for core debugging stories, that need
 
 ## Usage
 
-## TypeScript Projects
+### TypeScript Projects
+
+#### TypeScript, React, Parcel
 
 ```sh
 cd typescript-react
 yarn install
 yarn start
+```
+
+#### TypeScript 1.5, Angular, no bundler
+
+```sh
+cd typescript-angular
+yarn install
+yarn compile
+python -m SimpleHTTPServer
 ```
 
 ### Simple Test Cases

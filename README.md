@@ -8,6 +8,8 @@ This repository contains a couple of demos for core debugging stories, that need
 
 ### TypeScript Projects
 
+The following projects have been adapted from [todomvc.com](https://todomvc.com/).
+
 #### TypeScript, React, Parcel
 
 ```sh
@@ -23,6 +25,15 @@ cd typescript-angular
 yarn install
 yarn compile
 python -m SimpleHTTPServer
+```
+
+#### TypeScript 1.4, Backbone, local
+
+```sh
+cd typescript-backbone
+yarn install
+yarn compile
+open index.html
 ```
 
 ### Simple Test Cases

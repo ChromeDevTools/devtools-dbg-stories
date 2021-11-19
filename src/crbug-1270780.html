@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1270780</title>
+    <script defer src=crbug-1270780.js></script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1270780</h1>
+    <p>
+      This checks that the debugger breaks correctly on promise rejections in async generators
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Turn on <i>Pause on exceptions</i> in the <i>Sources</i> panel (while leaving <i>Pause on uncaught exceptions</i> turned off)</li>
+        <li>Click <button onclick='bar()'>here</button></li>
+        <li>Observe that the debugger doesn't stop</li>
+        <li>Turn on <i>Pause on uncaught exceptions</i></li>
+        <li>Click <button onclick='bar()'>here</button></li>
+        <li>Observe that the debugger stops in <code>crbug-1270780.js:6</code></li>
+        <li>Hit <i>Resume</i></li>
+        <li>Observe that the script finishes execution</li>
+      </ol>
+    </p>
+  </body>
+</html>

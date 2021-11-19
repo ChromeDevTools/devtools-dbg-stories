@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1270227</title>
+    <script>console.trace('Hello World!');
+//# sourceURL=hello.js
+    </script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1270227</h1>
+    <p>
+      This tests that Console doesn't show negative line numbers for inline scripts with <code>//# sourceURL</code> annotations.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Reload the page</li>
+        <li>The <code>'Hello World!'</code> log message should be reported with <code>hello.js:1</code></li>
+      </ol>
+    </p>
+  </body>
+</html>

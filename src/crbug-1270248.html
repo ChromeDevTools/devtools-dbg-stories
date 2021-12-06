@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function hello(what) {
+  "use strict";
+  eval("console.error('Hello " + what + "!');\n//# sourceURL=hello.js");
+}
+hello('bar');
+</script>
+<title>Repro for crbug/1270248</title>
+</head>
+<body>
+  <h1>Repro for crbu/1270248</h1>
+
+  <p>Steps to reproduce the problem:</p>
+  <ol>
+    <li>Open DevTools</li>
+    <li>Reload the page</li>
+    <li>Click the <button onclick='hello("foo")'>button</button></li>
+    <li>Observe that two distinct scripts refer to the same <code>hello.js</code></li>
+  </ol>
+</body>
+</html>

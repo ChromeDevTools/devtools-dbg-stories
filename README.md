@@ -6,9 +6,45 @@ This repository contains a couple of demos for core debugging stories, that need
 
 ## Usage
 
+### TypeScript Projects
+
+The following projects have been adapted from [todomvc.com](https://todomvc.com/).
+
+#### TypeScript, React, Parcel
+
+```sh
+cd typescript-react
+npm install
+npm start
+```
+
+The server will be running at [http://localhost:1234](http://localhost:1234).
+
+#### TypeScript 1.5, Angular, no bundler
+
+```sh
+cd typescript-angular
+npm install
+npm run compile
+python -m SimpleHTTPServer
+```
+
+The server will be running at [http://localhost:8000](http://localhost:8000).
+
+#### TypeScript 1.4, Backbone, local
+
+```sh
+cd typescript-backbone
+npm install
+npm run compile
+open index.html
+```
+
+### Simple Test Cases
+
 Clone this repository, and run
 
-```
+```sh
 npm install
 npm start
 ```

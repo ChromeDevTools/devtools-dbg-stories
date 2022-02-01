@@ -14,25 +14,29 @@ The following projects have been adapted from [todomvc.com](https://todomvc.com/
 
 ```sh
 cd typescript-react
-yarn install
-yarn start
+npm install
+npm start
 ```
+
+The server will be running at [http://localhost:1234](http://localhost:1234).
 
 #### TypeScript 1.5, Angular, no bundler
 
 ```sh
 cd typescript-angular
-yarn install
-yarn compile
+npm install
+npm run compile
 python -m SimpleHTTPServer
 ```
+
+The server will be running at [http://localhost:8000](http://localhost:8000).
 
 #### TypeScript 1.4, Backbone, local
 
 ```sh
 cd typescript-backbone
-yarn install
-yarn compile
+npm install
+npm run compile
 open index.html
 ```
 

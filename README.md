@@ -10,6 +10,8 @@ This repository contains a couple of demos for core debugging stories, that need
 
 The following projects have been adapted from [todomvc.com](https://todomvc.com/).
 
+What to check: Open the debugger and the console, observe whether breakpoints, the object inspector, the watch expressions, call stacks etc. all work as well as they would when debugging vanilla JS code.
+
 #### TypeScript, React, Parcel
 
 ```sh
@@ -39,6 +41,36 @@ npm install
 npm run compile
 open index.html
 ```
+
+### Performance examples
+
+#### Bad algorithm
+
+What to check: Open the performance panel, start recording, and click on the "+" button on the page. Observe the long tasks.
+
+A performance issue in a long task which stems from some expensive computation. There is something that takes a long time (is "hot"), and usually occurs once but it can also happen multiple times. E.g. processing large amounts of data with an inappropriate algorithm on the main thread.
+
+```sh
+cd react-redux-bad-algo
+npm install
+npm start
+```
+
+The server will be running at [http://localhost:3000](http://localhost:3000).
+
+#### Bad architecture
+
+What to check: Open the performance panel, start recording, and click on the "+" button on the page. Observe the long tasks.
+
+A performance issue in a long task which stems from the broad app architecture, rather than a singular expensive computation. There is something that is inexpensive, but dominates by occurring repeatedly many times. Usually the solution involves having to rethink the execution model. E.g. in case of react+redux, having to compute many selectors for each state change to determine which views must update, in views which would not have to update.
+
+```sh
+cd react-redux-bad-arch
+npm install
+npm start
+```
+
+The server will be running at [http://localhost:3000](http://localhost:3000).
 
 ### Simple Test Cases
 

@@ -42,13 +42,32 @@ npm run compile
 open index.html
 ```
 
+### Bundler examples
+
+#### NextJS, Webpack
+
+This is an example project following the starter template for [Learn Next.js](https://nextjs.org/learn).
+
+What to check: Open the debugger, search for index.js and other authored files in the Page tree and Quick Open panel.
+
+What is shown: Intertwining of authored and deployed sources.
+
+```sh
+cd nextjs-webpack
+npm install
+npm run build
+npm run dev
+```
+
+The server will be running at [http://localhost:3000](http://localhost:3000).
+
 ### Performance examples
 
 #### Bad algorithm
 
 What to check: Open the performance panel, start recording, and click on the "+" button on the page. Observe the long tasks.
 
-A performance issue in a long task which stems from some expensive computation. There is something that takes a long time (is "hot"), and usually occurs once but it can also happen multiple times. E.g. processing large amounts of data with an inappropriate algorithm on the main thread.
+What is shown: A performance issue in a long task which stems from some expensive computation. There is something that takes a long time (is "hot"), and usually occurs once but it can also happen multiple times. E.g. processing large amounts of data with an inappropriate algorithm on the main thread.
 
 ```sh
 cd react-redux-bad-algo
@@ -62,7 +81,7 @@ The server will be running at [http://localhost:3000](http://localhost:3000).
 
 What to check: Open the performance panel, start recording, and click on the "+" button on the page. Observe the long tasks.
 
-A performance issue in a long task which stems from the broad app architecture, rather than a singular expensive computation. There is something that is inexpensive, but dominates by occurring repeatedly many times. Usually the solution involves having to rethink the execution model. E.g. in case of react+redux, having to compute many selectors for each state change to determine which views must update, in views which would not have to update.
+What is shown: A performance issue in a long task which stems from the broad app architecture, rather than a singular expensive computation. There is something that is inexpensive, but dominates by occurring repeatedly many times. Usually the solution involves having to rethink the execution model. E.g. in case of react+redux, having to compute many selectors for each state change to determine which views must update, in views which would not have to update.
 
 ```sh
 cd react-redux-bad-arch

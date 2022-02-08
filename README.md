@@ -61,6 +61,30 @@ npm run dev
 
 The server will be running at [http://localhost:3000](http://localhost:3000).
 
+#### Webpack, Express, HMR
+
+This is an example project following the guides from [webpack.js.org/guides/hot-module-replacement](https://webpack.js.org/guides/hot-module-replacement).
+
+What to check: Open the debugger, click the button on the page, and make some changes to `second.js` in your favorite editor.
+
+What is shown: HMR will update the page and also add a duplicated script in the Page tree and Quick Open panel.
+
+To run the stock webpack server with HMR:
+
+```sh
+cd webpack-basic-hmr
+npm install
+npm run webpack-serve
+```
+
+Or, to use a custom express server with HMR middleware:
+
+```sh
+npm run express-serve
+```
+
+The server will be running at [http://localhost:8080](http://localhost:8080).
+
 ### Performance examples
 
 #### Bad algorithm

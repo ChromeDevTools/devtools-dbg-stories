@@ -87,6 +87,19 @@ The server will be running at [http://localhost:8080](http://localhost:8080).
 
 ### Performance examples
 
+### Bad animation and scrolling
+
+What to check (not in sequence): 
+
+1. Open the Performance panel, start recording, scroll down. Observe the unnecessary yellow background color changing on the number of comments.
+2. Open the Performance panel, start recording, click on a news to toggle the details (slide in and out). Observe the animation. 
+
+What is shown: Animation, long task, paint reflow. This codelab will walk you through the issues and how to fix them: https://developers.google.com/web/fundamentals/codelabs/web-perf
+
+How to run it:
+1. Get the code: [https://github.com/googlearchive/udacity-60fps-samples]
+2. To run it, use any local server, e.g. [http-server](https://www.npmjs.com/package/http-server).
+
 #### Bad algorithm
 
 What to check: Open the performance panel, start recording, and click on the "+" button on the page. Observe the long tasks.

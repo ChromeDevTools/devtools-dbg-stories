@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1304095</title>
+    <script>
+      async function wait() {
+        for (var i = 0; i < 5; ++i) {
+          await new Promise(resolve => setTimeout(resolve, 0));
+        }
+      }
+      wait();
+    </script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1304095</h1>
+    <p>
+      This triggers a crash when paused on a main thread and iframes are used.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools with a locally built Chrome (dchecks turned on)</li>
+        <li>Set a breakpoint in <code>crbug-1304095.html</code> on line 8</li>
+        <li>Reload page</i></li>
+        <li>Wait until paused on breakpoint and resume</i></li>
+        <li>Observe crash</i></li>
+      </ol>
+    </p>
+    <iframe title="devtools-dbg-stories" src="https://devtools-dbg-stories.netlify.app/"></iframe>
+  </body>
+</html>

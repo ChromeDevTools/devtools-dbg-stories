@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1283435</title>
+    <script src=crbug-1283435.es5.js defer></script>
+    <script src=crbug-1283435.es6.js defer></script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1283435</h1>
+    <p>
+    This illustrates the inconsistency of ES6 method names in stack traces,
+    and the lack of class information for them in DevTools' stack traces.
+    </p>
+
+    <h2>Steps</h2>
+    <ol>
+      <li>Open DevTools Console panel</li>
+      <li>Reload the page</li>
+      <li>Observe that in DevTools stack trace for <code>crbug-1283435.es6.js</code> the three top-most frames just say <code>func</code></li>
+    </ol>
+  </body>
+</html>

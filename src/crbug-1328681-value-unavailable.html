@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Repros for &lt;value unavailable&gt; (crbug/1328681)</title>
+    <script src="crbug-1328681-value-unavailable.js" defer></script>
+  </head>
+  <body>
+    <h1>Repros for &lt;value unavailable&gt; (crbug/1328681)</h1>
+
+    <p>
+      This illustrates the different reasons for the debugger being unable to
+      access the value of a variable (in the context of <a
+      href="http://goo.gle/devtools-value-unavailable">goo.gle/devtools-value-unavailable</a>).
+    </p>
+
+    <h2>Steps to reproduce the Temporal Dead Zone (TDZ)</h2>
+
+    <ol>
+      <li>Open DevTools.</li>
+      <li>Click <button onclick=tdz()>this button</button>.</li>
+      <li>Now DevTools should stop on the <code>debugger</code> statement in <code>tdz()</code>.</li>
+      <li>The <i>Scope</i> view in the <i>Sources</i> panel should show both <code>x</code> and <code>y</code> as <code>&lt;value unavailable&gt;</code>, since execution stopped in the TDZ for these variables.</li>
+    </ol>
+
+    <h2>Steps to reproduce the optimized out values in TurboFan</h2>
+
+    <ol>
+      <li>Open DevTools.</li>
+      <li>Click <button onclick=opt()>this button</button>.</li>
+      <li>Now DevTools should stop on the <code>debugger</code> statement in <code>optimizedOut()</code>.</li>
+      <li>The <i>Scope</i> view in the <i>Sources</i> panel should show <code>y</code> as <code>&lt;value unavailable&gt;</code>, since TurboFan doesn't need to keep the value of <code>y</code> alive beyond the <code>debugger</code> statement.</li>
+    </ol>
+  </body>
+</html>

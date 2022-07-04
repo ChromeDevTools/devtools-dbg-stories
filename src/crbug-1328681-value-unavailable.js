@@ -20,3 +20,12 @@ function opt() {
   }
   return optimizedOut(1, true);
 }
+
+function closure() {
+  const y = 1;
+  return function inner() {
+    let x = 1;
+    debugger;
+    return x + 1;
+  };
+}

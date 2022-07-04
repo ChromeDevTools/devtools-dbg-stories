@@ -31,5 +31,14 @@
       <li>Now DevTools should stop on the <code>debugger</code> statement in <code>optimizedOut()</code>.</li>
       <li>The <i>Scope</i> view in the <i>Sources</i> panel should show <code>y</code> as <code>&lt;value unavailable&gt;</code>, since TurboFan doesn't need to keep the value of <code>y</code> alive beyond the <code>debugger</code> statement.</li>
     </ol>
+
+    <h2>Steps to reproduce the missing closued over variables</h2>
+
+    <ol>
+      <li>Open DevTools.</li>
+      <li>Click <button onclick=closure()()>this button</button>.</li>
+      <li>Now DevTools should stop on the <code>debugger</code> statement in <code>inner()</code>.</li>
+      <li>The <i>Scope</i> view in the <i>Sources</i> panel should show <code>y</code> as <code>&lt;value unavailable&gt;</code>, since it's closed over but not needed for <code>inner</code>.</li>
+    </ol>
   </body>
 </html>

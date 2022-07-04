@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <script src=crbug-1341602-foo.js defer></script>
+    <script src=crbug-1341602-bar.js defer></script>
+    <title>Repro for crbug.com/1341602</title>
+  </head>
+  <body onload=foo50()>
+    <h1>Repro for crbug.com/1341602</h1>
+    <p>
+      This illustrates the problem that the editor scroll position is not
+      always reliably correctly restored when switching tabs.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open both <code>crbug-1341602-foo.js</code> and <code>crbug-1341602-bar.js</code> in the <i>Sources</i> panel</li>
+        <li>Click on the <code>crbug-1341602-foo.js:149</code> link in the <i>Console</i></li>
+        <li>Switch to <code>crbug-1341602-bar.js</code> tab, scroll to the bottom and the top of the file quickly and switch back to the <code>crbug-1341602-foo.js</code> tab</li>
+        <li>Ideally the scroll position now is again showing line 149 of <code>crbug-1341602-foo.js</code>, but most of the time it'll show the top of that file instead</li>
+      </ol>
+    </p>
+  </body>
+</html>

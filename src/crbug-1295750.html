@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1295750</title>
+    <script>
+      window.onerror = function onerrorHandler(message, source, lineno, colno, error) {
+        console.log('onerrorHandler', error);
+      }
+      window.addEventListener('error', function errorHandler(event) {
+        console.log('errorHandler', event.error);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1295750</h1>
+    <p>
+      This illustrates the problem that <code>window.onerror</code> handlers
+      and <code>'error'</code> events aren't fired by <i>Console</i> errors.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Click <button onclick="throw new Error('Error from <button>');">this button</button></li>
+        <li>Observe that both <code>onerrorHandler</code> and <code>errorHandler</code> were run</li>
+        <li>Paste <code>throw new Error('Error from console')</code> into the <i>Console</i> and run it</li>
+        <li>Observe that neither <code>onerrorHandler</code> nor <code>errorHandler</code> were run</li>
+      </ol>
+    </p>
+  </body>
+</html>

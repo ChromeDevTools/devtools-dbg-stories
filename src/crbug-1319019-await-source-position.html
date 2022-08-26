@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Repro for crbug.com/1319019 (await source position)</title>
+    <script>function awaitSourcePosition() {
+var obj = {
+async foo() {
+console.log("foo called");
+},
+async bar() {
+await this.foo();
+},
+async baz() {
+await obj.foo();
+}
+};
+obj.bar();
+obj.baz();
+}
+//# sourceURL=crbug-1319019-await-source-position.js</script>
+      <script>function awaitSourcePositionMinified(){var o={async foo(){console.log("foo called")},async bar(){await this.foo()},async baz(){await o.foo()}};o.bar(),o.baz()}
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiY3JidWctMTMxOTAxOS1hd2FpdC1zb3VyY2UtcG9zaXRpb24udHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImZ1bmN0aW9uIGF3YWl0U291cmNlUG9zaXRpb25NaW5pZmllZCgpIHtcbiAgdmFyIG9iaiA9IHtcbiAgICBhc3luYyBmb28oKSB7XG4gICAgICBjb25zb2xlLmxvZyhcImZvbyBjYWxsZWRcIik7XG4gICAgfSxcbiAgICBhc3luYyBiYXIoKSB7XG4gICAgICBhd2FpdCB0aGlzLmZvbygpO1xuICAgIH0sXG4gICAgYXN5bmMgYmF6KCkge1xuICAgICAgYXdhaXQgb2JqLmZvbygpO1xuICAgIH1cbiAgfTtcbiAgb2JqLmJhcigpO1xuICBvYmouYmF6KCk7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiQUFBQSxTQUFTLDZCQUE4QixDQUNyQyxJQUFJQSxFQUFNLENBQ1IsTUFBTSxLQUFNLENBQ1YsUUFBUSxJQUFJLFlBQVksQ0FDMUIsRUFDQSxNQUFNLEtBQU0sQ0FDVixNQUFNLEtBQUssSUFBSSxDQUNqQixFQUNBLE1BQU0sS0FBTSxDQUNWLE1BQU1BLEVBQUksSUFBSSxDQUNoQixDQUNGLEVBQ0FBLEVBQUksSUFBSSxFQUNSQSxFQUFJLElBQUksQ0FDViIsCiAgIm5hbWVzIjogWyJvYmoiXQp9Cg==</script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1319019 (await source position)</h1>
+    <p>
+      This illustrates the problem with <code>await</code> break positions
+      being inconsistent.
+    </p>
+
+    <h2>Steps (plain JavaScript)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1319019-await-source-position.js</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in both line 7 and line 10 by just clicking on the line number in the breakpoint gutter (notice that in both cases the breakpoint is supposedly set on the <code>await</code> expression)</li>
+        <li>Click <button onclick="awaitSourcePosition()">here</button> and observe that the debugger pauses on line 7 after calling <code>foo</code></li>
+        <li>Now press <i>Resume</i> and observe that the debugger is paused on line 10, but <code>foo</code> was not called yet</li>
+        <li>Click <i>Resume</i> again and observe that <code>foo</code> is called eventually</li>
+      </ol>
+    </p>
+
+    <h2>Steps (minified TypeScript)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1319019-await-source-position.ts</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in both line 7 and line 10 by just clicking on the line number in the breakpoint gutter (notice that in both cases the breakpoint is supposedly set on the <code>await</code> expression)</li>
+        <li>Click <button onclick="awaitSourcePositionMinified()">here</button> and observe that the debugger pauses on line 7 after calling <code>foo</code></li>
+        <li>Now press <i>Resume</i> and observe that the debugger is paused on line 10, but <code>foo</code> was not called yet</li>
+        <li>Click <i>Resume</i> again and observe that <code>foo</code> is called eventually</li>
+      </ol>
+    </p>
+  </body>
+</html>

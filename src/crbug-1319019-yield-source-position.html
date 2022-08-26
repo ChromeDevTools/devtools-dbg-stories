@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Repro for crbug.com/1319019 (yield source position)</title>
+    <script>function yieldSourcePosition() {
+var obj = {
+foo() {
+console.log("foo called");
+},
+*bar() {
+yield this.foo();
+},
+*baz() {
+yield obj.foo();
+}
+};
+obj.bar().next();
+obj.baz().next();
+}
+//# sourceURL=crbug-1319019-yield-source-position.js</script>
+    <script>function yieldSourcePositionMinified(){var o={foo(){console.log("foo called")},*bar(){yield this.foo()},*baz(){yield o.foo()}};o.bar().next(),o.baz().next()}
+      //# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiY3JidWctMTMxOTAxOS15aWVsZC1zb3VyY2UtcG9zaXRpb24udHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImZ1bmN0aW9uIHlpZWxkU291cmNlUG9zaXRpb25NaW5pZmllZCgpIHtcblx0dmFyIG9iaiA9IHtcbiAgICBmb28oKSB7XG4gICAgICBjb25zb2xlLmxvZyhcImZvbyBjYWxsZWRcIik7XG4gICAgfSxcbiAgICAqYmFyKCkge1xuICAgICAgeWllbGQgdGhpcy5mb28oKTtcbiAgICB9LFxuICAgICpiYXooKSB7XG4gICAgICB5aWVsZCBvYmouZm9vKCk7XG4gICAgfVxuXHR9O1xuXHRvYmouYmFyKCkubmV4dCgpO1xuXHRvYmouYmF6KCkubmV4dCgpO1xufVxuIl0sCiAgIm1hcHBpbmdzIjogIkFBQUEsU0FBUyw2QkFBOEIsQ0FDdEMsSUFBSUEsRUFBTSxDQUNQLEtBQU0sQ0FDSixRQUFRLElBQUksWUFBWSxDQUMxQixFQUNBLENBQUMsS0FBTSxDQUNMLE1BQU0sS0FBSyxJQUFJLENBQ2pCLEVBQ0EsQ0FBQyxLQUFNLENBQ0wsTUFBTUEsRUFBSSxJQUFJLENBQ2hCLENBQ0gsRUFDQUEsRUFBSSxJQUFJLEVBQUUsS0FBSyxFQUNmQSxFQUFJLElBQUksRUFBRSxLQUFLLENBQ2hCIiwKICAibmFtZXMiOiBbIm9iaiJdCn0K</script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1319019 (yield source position)</h1>
+    <p>
+      This illustrates the problem with <code>yield</code> break positions
+      being inconsistent.
+    </p>
+
+    <h2>Steps (plain JavaScript)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1319019-yield-source-position.js</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in both line 7 and line 10 by just clicking on the line number in the breakpoint gutter (notice that in both cases the breakpoint is supposedly set on the <code>yield</code> expression)</li>
+        <li>Click <button onclick="yieldSourcePosition()">here</button> and observe that the debugger pauses on line 7 after calling <code>foo</code></li>
+        <li>Now press <i>Resume</i> and observe that the debugger is paused on line 10, but <code>foo</code> was not called yet</li>
+        <li>Click <i>Resume</i> again and observe that <code>foo</code> is called eventually</li>
+      </ol>
+    </p>
+
+    <h2>Steps (minified TypeScript)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1319019-yield-source-position.ts</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in both line 7 and line 10 by just clicking on the line number in the breakpoint gutter (notice that in both cases the breakpoint is supposedly set on the <code>yield</code> expression)</li>
+        <li>Click <button onclick="yieldSourcePositionMinified()">here</button> and observe that the debugger pauses on line 7 after calling <code>foo</code></li>
+        <li>Now press <i>Resume</i> and observe that the debugger is paused on line 10, but <code>foo</code> was not called yet</li>
+        <li>Click <i>Resume</i> again and observe that <code>foo</code> is called eventually</li>
+      </ol>
+    </p>
+  </body>
+</html>

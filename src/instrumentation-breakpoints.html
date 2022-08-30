@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for Instrumentation Breakpoints with non-sourcemapped JS</title>
+    <script src='instrumentation-breakpoints.js'></script>
+  </head>
+  <body>
+    <h1>Repro for hitting breakpoints in non-sourcemapped JS</h1>
+    <h2>Hitting breakpoints upon initial load (no back-end state)</h2>
+    <h3 id="js-initial">Breakpoint on JS file</h3>
+    <p>
+      This test illustrates the problem that DevTools does not always manage to set breakpoints in
+      time for non-sourcemapped JS files. In each of these cases, we should reliably hit a breakpoint at the end of the steps.
+    </p>
+    <h4>Steps</h4>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Set a breakpoint in <code>instrumentation-breakpoints.js</code></li>
+        <li>Open a new tab and open DevTools</li>
+        <li>Navigate to this page</li>
+        <li>Breakpoint should hit</li>
+      </ol>
+    </p>
+
+    <h3 id="overridden-js-initial">Breakpoint on overridden JS file</h3>
+    <p>
+      This test illustrates the problem that DevTools does not always manage to set breakpoints in
+      time for overridden JS files.
+    </p>
+    <h4>Steps</h4>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>In the <code>Sources</code> panel, go to the <code>Overrides</code> subtab</li>
+        <li>Select a folder for your overrides and allow DevTools to access your folder (popup)</li>
+        <li>Open <code>instrumentation-breakpoints.js</code></li>
+        <li>Edit the file by adding a line <code>console.log('hello');</code> and save</li>
+        <li>Set a breakpoint on that line</li>
+        <li>Open a new tab and open DevTools</li>
+        <li>Navigate to this page</li>
+        <li>Breakpoint should hit, and overridden JS file with the added line is shown</li>
+      </ol>
+    </p>
+
+    <h3 id="filesystem-js-initial">Breakpoint on filesystem JS file</h3>
+    <p>
+      This test illustrates the problem that DevTools does not always manage to set breakpoints in
+      time for filesystem JS files.
+    </p>
+    <h4>Steps</h4>
+    <p>
+      <ol>
+        <li>Clone this repository: <code>git clone https://github.com/ChromeDevTools/devtools-dbg-stories.git</code></li>
+        <li>Set up the repository and serve the page (see <code>README.md</code> within the repository)</li>
+        <li>Navigate to <code>about:blank</code></li>
+        <li>Open DevTools</li>
+        <li>In the <code>Sources</code> panel, go to the <code>Filesystem</code> subtab</li>
+        <li>Select the <code><b>devtools-dbg-stories/dist</b></code> folder and add it to your workspace</li>
+        <li>Open <code>instrumentation-breakpoints.js</code> within the <code>FileSystem</code> subtab</li>
+        <li>Set a breakpoint on a line</li>
+        <li>Open a new tab and open DevTools</li>
+        <li>Navigate to the served page (probably <a href="http://localhost:8000/instrumentation-breakpoints.html">localhost:8000/instrumentation-breakpoints.html</a>)</li>
+        <li>Breakpoint should hit</li>
+      </ol>
+    </p>
+
+    <hr>
+
+    <h2>Hitting breakpoints on reload (back-end state available)</h2>
+    These tests are the same as the tests before, but are based on reloading (i.e. we have already loaded this page within the same tab once).
+    <h3>Breakpoint on JS file</h3>
+    <p>
+      This test illustrates the problem that DevTools does not always manage to set breakpoints in
+      time for non-sourcemapped JS files on reload. In each of these cases, we should hit a breakpoint on reload.
+    </p>
+    <h4>Steps</h4>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Set a breakpoint in <code>instrumentation-breakpoints.js</code></li>
+        <li>Reload</li>
+        <li>Breakpoint should hit</li>
+      </ol>
+    </p>
+
+    <h3>Breakpoint on overridden JS file</h3>
+    <p>
+      This test illustrates the problem that DevTools does not always manage to set breakpoints in
+      time for overridden JS files on reload.
+    </p>
+    <h4>Steps</h4>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>In the <code>Sources</code> panel, go to the <code>Overrides</code> subtab</li>
+        <li>Select a folder for your overrides and allow DevTools to access your folder (popup).</li>
+        <li>Open <code>instrumentation-breakpoints.js</code></li>
+        <li>Edit the file by adding a line <code>console.log('hello');</code> and save</li>
+        <li>Set a breakpoint on that line</li>
+        <li>Reload</li>
+        <li>Breakpoint should hit, and overridden JS file is shown</li>
+      </ol>
+    </p>
+
+    <h3>Breakpoint on filesystem JS file</h3>
+    <p>
+      This test illustrates the problem that DevTools does not always manage to set breakpoints in
+      time for filesystem JS files on reload.
+    </p>
+    <h4>Steps</h4>
+    <p>
+      <ol>
+        <li>Clone this repository: <code>git clone https://github.com/ChromeDevTools/devtools-dbg-stories.git</code></li>
+        <li>Set up the repository and serve the page (see <code>README.md</code> within the repository)</li>
+        <li>Navigate to the served page (probably <a href="http://localhost:8000/instrumentation-breakpoints.html">localhost:8000/instrumentation-breakpoints.html</a>)</li>
+        <li>Open DevTools</li>
+        <li>In the <code>Sources</code> panel, go to the <code>Filesystem</code> subtab</li>
+        <li>Select the cloned <code><b>devtools-dbg-stories/dist</b></code> folder and add it to your workspace</li>
+        <li>Open <code>instrumentation-breakpoints.js</code> within the <code>FileSystem</code> subtab</li>
+        <li>Set a breakpoint on a line</li>
+        <li>Reload</li>
+        <li>Breakpoint should hit</li>
+      </ol>
+    </p>
+
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Repro for crbug.com/1357506</title>
+    <script>function awaitLineBreakpoint() {
+var obj = {
+foo() {
+console.log("foo called");
+},
+async bar() {
+  await this.foo();
+},
+async baz() {
+await this.foo();
+}
+};
+obj.bar();
+obj.baz();
+}
+//# sourceURL=crbug-1357506-await-line-breakpoint.js</script>
+    <script>function awaitLineBreakpointMinified(){var o={foo(){console.log("foo called")},async bar(){await this.foo()}};o.bar()}
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiY3JidWctMTM1NzUwNi1hd2FpdC1saW5lLWJyZWFrcG9pbnQudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImZ1bmN0aW9uIGF3YWl0TGluZUJyZWFrcG9pbnRNaW5pZmllZCgpIHtcbiAgdmFyIG9iaiA9IHtcbiAgICBmb28oKSB7XG4gICAgICBjb25zb2xlLmxvZyhcImZvbyBjYWxsZWRcIik7XG4gICAgfSxcbiAgICBhc3luYyBiYXIoKSB7XG4gICAgICBhd2FpdCB0aGlzLmZvbygpO1xuICAgIH0sXG4gIH07XG4gIG9iai5iYXIoKTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICJBQUFBLFNBQVMsNkJBQThCLENBQ3JDLElBQUlBLEVBQU0sQ0FDUixLQUFNLENBQ0osUUFBUSxJQUFJLFlBQVksQ0FDMUIsRUFDQSxNQUFNLEtBQU0sQ0FDVixNQUFNLEtBQUssSUFBSSxDQUNqQixDQUNGLEVBQ0FBLEVBQUksSUFBSSxDQUNWIiwKICAibmFtZXMiOiBbIm9iaiJdCn0K</script>
+    <script>function forofBreakpoint() {
+function foo() {
+console.log("foo called");
+return [];
+}
+for (const
+x of foo()) {
+}
+for (
+const x of foo()) {
+}
+}
+//# sourceURL=crbug-1357506-forof-line-breakpoint.js</script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1357506</h1>
+    <p>
+      This illustrates the problem with line breakpoints being inconsistent.
+    </p>
+
+    <h2>Steps (for <code>await</code> expressions in plain JavaScript)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1357506-await-line-breakpoint.js</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in line 7 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the call to <code>foo</code>)</li>
+        <li>Set a breakpoint in line 10 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the <code>await</code>)</li>
+        <li>Click <button onclick="awaitLineBreakpoint()">here</button> and observe that the debugger pauses on line 7 before calling <code>foo</code></li>
+        <li>Now press <i>Resume</i> and observe that the debugger is paused on line 10, and <code>foo</code> was called twice meanwhile</li>
+      </ol>
+    </p>
+
+    <h2>Steps (for <code>await</code> expressions in minified TypeScript)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1357506-await-line-breakpoint.ts</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in line 7 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the <code>await</code>)</li>
+        <li>Click <button onclick="awaitLineBreakpointMinified()">here</button> and observe that the debugger pauses on line 7 after calling <code>foo</code></li>
+      </ol>
+    </p>
+
+    <h2>Steps (for <code>for..of</code> expressions)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1357506-forof-line-breakpoint.js</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in line 7 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the <code>x</code>)</li>
+        <li>Set a breakpoint in line 10 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the call to <code>foo</code>)</li>
+        <li>Click <button onclick="forofBreakpoint()">here</button> and observe that the debugger pauses on line 7 after calling <code>foo</code></li>
+        <li>Now press <i>Resume</i> and observe that the debugger is paused on line 10, and <code>foo</code> was not called again meanwhile</li>
+        <li>Press <i>Resume</i> again and observe that <code>foo</code> is called a second time now</li>
+      </ol>
+    </p>
+  </body>
+</html>

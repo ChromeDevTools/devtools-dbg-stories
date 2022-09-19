@@ -26,14 +26,24 @@ function foo() {
 console.log("foo called");
 return [];
 }
+for (const x of foo()) {
+}
 for (const
 x of foo()) {
 }
-for (
-const x of foo()) {
-}
 }
 //# sourceURL=crbug-1357506-forof-line-breakpoint.js</script>
+    <script>function destructuringBreakpoint() {
+function foo() {
+console.log("foo called");
+return [];
+}
+const [a, b] = foo();
+const [
+x, y
+] = foo();
+}
+//# sourceURL=crbug-1357506-destructuring-line-breakpoint.js</script>
   </head>
   <body>
     <h1>Repro for crbug.com/1357506</h1>
@@ -68,12 +78,28 @@ const x of foo()) {
       <ol>
         <li>Reload this page with DevTools open</li>
         <li>Open <code>crbug-1357506-forof-line-breakpoint.js</code> in the <i>Sources</i> panel</li>
-        <li>Set a breakpoint in line 7 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the <code>x</code>)</li>
-        <li>Set a breakpoint in line 10 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the call to <code>foo</code>)</li>
-        <li>Click <button onclick="forofBreakpoint()">here</button> and observe that the debugger pauses on line 7 after calling <code>foo</code></li>
-        <li>Now press <i>Resume</i> and observe that the debugger is paused on line 10, and <code>foo</code> was not called again meanwhile</li>
-        <li>Press <i>Resume</i> again and observe that <code>foo</code> is called a second time now</li>
+        <li>Set a breakpoint in line 6 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the call to <code>foo</code>)</li>
+        <li>Set a breakpoint in line 9 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the <code>x</code>)</li>
+        <li>Click <button onclick="forofBreakpoint()">here</button> and observe that the debugger pauses on line 6 before calling <code>foo</code></li>
+        <li>Now press <i>Resume</i> and observe that the debugger is paused on line 9, and <code>foo</code> was called twice meanwhile</li>
       </ol>
+    </p>
+
+    <h2>Steps (for destructuring expressions)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1357506-destructuring-line-breakpoint.js</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in line 6 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the call to <code>foo</code>)</li>
+        <li>Set a breakpoint in line 8 by just clicking on the line number in the breakpoint gutter (notice that the breakpoint is set on the <code>x</code>)</li>
+        <li>Click <button onclick="destructuringBreakpoint()">here</button> and observe that the debugger pauses on line 6 before calling <code>foo</code></li>
+        <li>Now press <i>Resume</i> and observe that the debugger is paused on line 8, and <code>foo</code> was called twice meanwhile</li>
+      </ol>
+    </p>
+    <p>
+      <h3>Bonus points</h3>
+      Click on line 7 and observe that the breakpoint is not set on line 7, which makes sense since it's not breakable, but rather jumps to
+      line 9 (on the call to <code>foo</code>), which is counter-intuitive from the source code perspective.
     </p>
   </body>
 </html>

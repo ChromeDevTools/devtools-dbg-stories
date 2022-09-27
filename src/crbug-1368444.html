@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Repro for crbug.com/1368444</title>
+    <script>function arrayDestructuring() {
+  function foo() {
+    return [1, 2];
+  }
+  var [a, b] = foo();
+  return a + b;
+}
+//# sourceURL=crbug-1368444-array-destructuring.js</script>
+    <script>function objectDestructuring() {
+  function foo() {
+    return {a:1, b:2};
+  }
+  var {a, b} = foo();
+  return a + b;
+}
+//# sourceURL=crbug-1368444-object-destructuring.js</script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1368444</h1>
+    <p>
+      This illustrates the problem with confusing destructuring breakpoints and stepping.
+    </p>
+
+    <h2>Steps (for array destructuring)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1368444-array-destructuring.js</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in line 5 by just clicking on the line number in the breakpoint gutter (observe that the breakpoint is set on the call to <code>foo</code>)</li>
+        <li>Click <button onclick="arrayDestructuring()">here</button> and observe that the debugger pauses on line 5 before calling <code>foo</code></li>
+        <li>Now press <i>Step Over</i> and observe that the debugger is still paused on line 5, but this time on the <code>a</code></li>
+        <li>Now press <i>Step Over</i> again and observe that the debugger is still paused on line 5, but this time on the <code>b</code></li>
+      </ol>
+    </p>
+
+    <h2>Steps (for object destructuring)</h2>
+    <p>
+      <ol>
+        <li>Reload this page with DevTools open</li>
+        <li>Open <code>crbug-1368444-object-destructuring.js</code> in the <i>Sources</i> panel</li>
+        <li>Set a breakpoint in line 5 by just clicking on the line number in the breakpoint gutter (observe that the breakpoint is set on the call to <code>foo</code>)</li>
+        <li>Click <button onclick="objectDestructuring()">here</button> and observe that the debugger pauses on line 5 before calling <code>foo</code></li>
+        <li>Now press <i>Step Over</i> and observe that the debugger is still paused on line 5, but this time on the <code>a</code></li>
+        <li>Now press <i>Step Over</i> again and observe that the debugger is still paused on line 5, but this time on the <code>b</code></li>
+      </ol>
+    </p>
+  </body>
+</html>

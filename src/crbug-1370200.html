@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Repro for crbug.com/1370200</title>
+    <script>const foo = String.prototype.substring.bind('');</script>
+    <script>function semicolon() {
+  debugger;
+  foo();
+  foo();
+  foo();
+}
+//# sourceURL=crbug-1370200-semicolon.js</script>
+<script>function comma() {
+  debugger;
+  foo(),
+  foo(),
+  foo();
+}
+//# sourceURL=crbug-1370200-comma.js</script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1370200</h1>
+    <p>
+      This illustrates the problem with confusing stepping between comma and semicolon.
+    </p>
+
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Click <button onclick=semicolon()>here</button> and <i>Step Over</i> the code until you hit the end of the function <code>semicolon</code></li>
+        <li>Observe that the debugger pauses exactly once on every line</li>
+        <li>Click <button onclick=comma()>here</button> and <i>Step Over</i> the code until you hit the end of the function <code>comma</code></li>
+        <li>Observe that the debugger jumps over two calls to <code>foo</code> without stopping</li>
+      </ol>
+    </p>
+  </body>
+</html>

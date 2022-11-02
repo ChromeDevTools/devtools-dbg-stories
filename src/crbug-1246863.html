@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Repro for crbug.com/1246863</title>
+    <script>function C() {
+const fn = new.target;
+debugger;
+}
+
+function D() {
+  const fn = eval('new.target');
+  debugger;
+}
+
+function E() {
+  debugger;
+}
+//# sourceURL=crbug-1246863.js</script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1246863 (<code>new.target</code> support)</h1>
+    <p>
+      This illustrates the problem that <code>new.target</code> is not (consistently)
+      accesible to the debugger from within functions, but provides the developer
+      with cryptic error messages at times.
+    </p>
+
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Click <button onclick="new C()">here</button> and observe that the debugger pauses in <code>C</code></li>
+        <li>Evaluate <code>new.target</code> in the <i>Console</i>, which should yield the closure <code>C</code></li>
+        <li>Click <button onclick="new D()">here</button> and observe that the debugger pauses in <code>D</code></li>
+        <li>Evaluate <code>new.target</code> in the <i>Console</i>, which should yield the closure <code>D</code></li>
+        <li>Click <button onclick="new E()">here</button> and observe that the debugger pauses in <code>E</code></li>
+        <li>Evaluate <code>new.target</code> in the <i>Console</i>, which should yield the closure <code>E</code></li>
+      </ol>
+    </p>
+  </body>
+</html>

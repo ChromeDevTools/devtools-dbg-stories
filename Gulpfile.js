@@ -1,6 +1,7 @@
 const { dest, parallel, series, src, watch } = require("gulp");
 const connect = require("gulp-connect");
 const del = require("delete");
+const sass = require("gulp-sass")(require("sass"));
 const sourcemaps = require("gulp-sourcemaps");
 const ts = require("gulp-typescript");
 
@@ -12,6 +13,15 @@ const buildAssets = () =>
     .pipe(dest(`${DISTDIR}`))
     .pipe(connect.reload());
 
+const buildStyles = () => {
+  return src(`${SRCDIR}/*.scss`)
+    .pipe(sourcemaps.init())
+    .pipe(sass().on("error", sass.logError))
+    .pipe(sourcemaps.write("./"))
+    .pipe(dest(`${DISTDIR}`))
+    .pipe(connect.reload());
+};
+
 const buildTypeScript = () => {
   return src(`${SRCDIR}/*.ts`)
     .pipe(sourcemaps.init())
@@ -21,7 +31,7 @@ const buildTypeScript = () => {
     .pipe(connect.reload());
 };
 
-const build = parallel(buildAssets, buildTypeScript);
+const build = parallel(buildAssets, buildStyles, buildTypeScript);
 
 const clean = cb => del([`${DISTDIR}`], cb);
 

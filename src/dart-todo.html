@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Procrastinator's Todo</title>
+    <!-- Generated with `dart compile js -O0 dart-todo.dart -o dart-todo.out.js` -->
+    <script src="dart-todo.out.js" defer></script>
+    <style>
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: WhiteSmoke;
+  margin: 15px;
+  color: black;
+}
+
+h2 {
+  color: black;
+}
+
+#to-do-input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 5px 0px 5px 5px;
+  width: 100%;
+  border: 1px solid Silver;
+  background-color: White;
+}
+
+#to-do-list {
+  padding: 0;
+  margin: 0;
+  list-style-position: inside;
+}
+
+#to-do-list li {
+  padding: 5px 0px 5px 5px;
+  border-bottom: 1px dotted Silver;
+}
+    </style>
+  </head>
+  <body>
+    <h2>Procrastinator's Todo</h2>
+
+    <div>
+      <input id="to-do-input" type="text" placeholder="What needs to be done?">
+    </div>
+
+    <div>
+      <ul id="to-do-list">
+      </ul>
+    </div>
+  </body>
+</html>

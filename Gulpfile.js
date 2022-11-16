@@ -10,7 +10,7 @@ const DISTDIR = "./dist";
 const SRCDIR = "./src";
 
 const buildAssets = () =>
-  src(`${SRCDIR}/*.{html,ico,js,mjs}`)
+  src(`${SRCDIR}/*.{dart,html,ico,js,map,mjs}`)
     .pipe(dest(`${DISTDIR}`))
     .pipe(connect.reload());
 

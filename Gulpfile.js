@@ -14,7 +14,7 @@ const buildAssets = () =>
     .pipe(connect.reload());
 
 const buildStyles = () => {
-  return src(`${SRCDIR}/*.scss`)
+  return src(`${SRCDIR}/*.{sass,scss}`)
     .pipe(sourcemaps.init())
     .pipe(sass().on("error", sass.logError))
     .pipe(sourcemaps.write("./"))

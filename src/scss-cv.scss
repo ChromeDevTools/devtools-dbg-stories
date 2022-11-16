@@ -1,0 +1,157 @@
+// Reset defaults
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+div,
+h1,
+h2,
+h3,
+p,
+main {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+// Variables
+$lightBase: #f3f7fc;
+$textLight: #535764;
+$textDark: #31353b;
+$themeColor: #ff5b32;
+
+.page-wrapper {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  background: #3C434D;
+  font-family: "Roboto", sans-serif;
+
+  .card {
+    transition: all 2s ease;
+    overflow: hidden;
+    position: relative;
+    width: 700px;
+
+    align-self: center;
+    background: $lightBase;
+    flex-direction: column;
+    padding: 50px;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+    h1 {
+      color: $textDark;
+      font-weight: bold;
+    }
+
+    h2,
+    h3 {
+      color: $textLight;
+    }
+
+    .greeting {
+      margin-bottom: 4px;
+    }
+
+    .designation-wrapper {
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+
+    .company {
+      color: $themeColor;
+      transition: all .2s ease;
+
+      &.link {
+        &:hover {
+          background: $themeColor;
+          color: white;
+        }
+      }
+    }
+
+    .location-wrapper {
+      align-items: center;
+      margin-bottom: 36px;
+
+      .location {
+        margin-left: 20px;
+        letter-spacing: 2px;
+      }
+
+      i,
+      svg {
+        color: $themeColor;
+        font-size: 36px;
+      }
+    }
+
+    main {
+      line-height: 1.6;
+      margin-bottom: 40px;
+      flex-direction: column;
+      color: $textLight;
+
+      p {
+        width: 400px;
+      }
+
+      .image-wrapper {
+        position: absolute;
+        z-index: 2;
+        right: 10%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+      }
+    }
+
+    footer {
+      flex-direction: row;
+
+      a {
+        text-decoration: none;
+      }
+
+      i,
+      svg {
+        font-size: 32px;
+        margin-right: 30px;
+
+        color: $themeColor;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+          color: $textDark;
+          transform: scale(1.4);
+        }
+      }
+    }
+
+    .cool-effect {
+      position: absolute;
+      background: $themeColor;
+      height: 170%;
+      width: 100%;
+      right: -70%;
+      top: 00;
+      border-radius: 50%;
+    }
+  }
+}

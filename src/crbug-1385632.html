@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Repro for crbug.com/1385632</title>
+    <link rel="stylesheet" type="text/css" href="crbug-1385632.css">
+    <style>
+body {
+  background-color: #eee;
+}
+    </style>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1385632</h1>
+    <p>
+      This illustrates the missing color swatch for inline <code>&lt;style&gt;</code>s.
+    </p>
+
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Open <code>crbug-1385632.html</code> in the <i>Sources</i> panel</li>
+        <li>Observe that there's no color swatch on the <code>background-color</code></li>
+      </ol>
+    </p>
+  </body>
+</html>

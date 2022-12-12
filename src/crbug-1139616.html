@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1139616</title>
+    <script>
+function foo(n, f) {
+  if (n > 0) return foo(n - 1, f);
+  f();
+}
+function bar() {
+  function baz() {
+    console.trace('finally reached the end...');
+  }
+  foo(10, baz);
+  foo(5, () => setTimeout(() => baz(), 1));
+  setTimeout(() => foo(3, () => setTimeout(() => foo(4, baz))));
+}
+//# sourceURL=crbug-1139616.js
+    </script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1139616</h1>
+    <p>
+      Demo for <code>console.trace()</code> call stacks being expanded by default.
+    </p>
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Click <button onclick="bar()">here</button> and observe the <i>Console</i> spam</li>
+      </ol>
+    </p>
+  </body>
+</html>

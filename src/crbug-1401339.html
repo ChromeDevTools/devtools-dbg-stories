@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repro for crbug.com/1401339</title>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1401339</h1>
+    <p>
+      This illustrates the reliability issues with the <i>Never pause here</i> functionality
+      in Chrome DevTools, which actually is just a special case of a conditional breakpoint
+      with condition set to <code>false</code>.
+    </p>
+
+    <h2>Steps (for service worker registration)</h2>
+    <p>
+      This is an example that was brought up in <a href="https://crbug.com/465666#c18">comment 18 of crbug/465666</a>.
+      <script src=crbug-1401339-sw-install.js defer type=text/javascript></script>
+      <ol>
+        <li>Open DevTools and turn on <i>Pause on (uncaught) exceptions</i> in the <i>Sources</i> panel</li>
+        <li>Open <code>crbug-1401339-sw-install.js</code> in the <i>Sources</i> panel and set <i>Never pause here</i> on line 4 (on the call to <code>subscribe</code>)</li>
+        <li>Click <button onclick="testServiceWorker()">here</button> and observe that the debugger doesn't stop (intended behavior)</li>
+      </ol>
+    </p>
+
+    <h2>Steps (for throwing in ignore-listed code)</h2>
+    <p>
+      <script src=crbug-1401339-ignore-hidden.js defer type=text/javascript></script>
+      <script src=crbug-1401339-ignore.js defer type=text/javascript></script>
+      <ol>
+        <li>Open DevTools and turn on <i>Pause on (uncaught) exceptions</i> in the <i>Sources</i> panel</li>
+        <li>Add <code>crbug-1401339-ignore-hidden.js</code> to the <i>Ignore List</i></li>
+        <li>Open <code>crbug-1401339-ignore.js</code> in the <i>Sources</i> panel and set <i>Never pause here</i> on line 2 (on the call to <code>someLibraryFunction</code>)</li>
+        <li>Click <button onclick="testIgnore()">here</button> and observe</li>
+      </ol>
+    </p>
+
+    <h2>Steps (for <code>Set</code> constructor throwing)</h2>
+    <p>
+      <script src=crbug-1401339-set.js defer type=text/javascript></script>
+      <ol>
+        <li>Open DevTools and turn on <i>Pause on (uncaught) exceptions</i> in the <i>Sources</i> panel</li>
+        <li>Open <code>crbug-1401339-set.js</code> in the <i>Sources</i> panel and set <i>Never pause here</i> on line 2 (on the call to the <code>Set</code> constructor)</li>
+        <li>Click <button onclick="testSet()">here</button> and observe that the debugger doesn't stop</li>
+      </ol>
+    </p>
+
+    <h2>Steps (for <code>Promise</code> reject callback)</h2>
+    <p>
+      <script src=crbug-1401339-reject.js defer type=text/javascript></script>
+      <ol>
+        <li>Open DevTools and turn on <i>Pause on (uncaught) exceptions</i> in the <i>Sources</i> panel</li>
+        <li>Open <code>crbug-1401339-reject.js</code> in the <i>Sources</i> panel and set <i>Never pause here</i> on line 4 (on the <code>throw</code> statement)</li>
+        <li>Click <button onclick="testPromiseThrow()">here</button> and observe that the debugger doesn't stop (intended behavior)</li>
+        <li>Now do the same for line 11 (on the call to <code>reject</code>), click <button onclick="testPromiseReject()">here</button>, and observe the result</li>
+      </ol>
+    </p>
+  </body>
+</html>

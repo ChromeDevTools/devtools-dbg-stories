@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Repro for crbug.com/1408032</title>
+    <script src="crbug-1408032.js"></script>
+    <script src="crbug-1408032.out.js"></script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/1408032</h1>
+    <p>
+      This illustrates the problem with breakpoints being keyed on URL only in the
+      Chrome DevTools front-end.
+    </p>
+
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Open the non-italic <code>crbug-1408032.js</code> and set a breakpoint on the call to <code>real</code></li>
+        <li>Open the italic <code>crbug-1408032.js</code> and set a breakpoint on the call to <code>console.log</code></li>
+        <li>Reload</li>
+      </ol>
+    </p>
+  </body>
+</html>

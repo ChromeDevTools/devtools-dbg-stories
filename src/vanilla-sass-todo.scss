@@ -1,0 +1,34 @@
+$font: "Roboto", sans-serif;
+$border-color: Silver;
+
+body {
+  font-family: $font;
+  background-color: WhiteSmoke;
+  margin: 15px;
+  color: black;
+
+  h2 {
+    color: black;
+  }
+
+  #to-do-input {
+    font-family: $font;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 5px 0px 5px 5px;
+    width: 100%;
+    border: 1px solid $border-color;
+    background-color: White;
+  }
+
+  #to-do-list {
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+
+    li {
+      padding: 5px 0px 5px 5px;
+      border-bottom: 1px dotted $border-color;
+    }
+  }
+}

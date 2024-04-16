@@ -1,0 +1,36 @@
+/crbug-333756098-ExpiredResponse.dict
+  Cache-Control: no-store
+  Use-As-Dictionary: match="/test/*"
+/crbug-333756098-IdFieldIsNotAString.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match="/test/*", id=dict_id
+/crbug-333756098-IdFieldTooLong.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match="/test/*", id=dict_id
+/crbug-333756098-InvalidMatchField.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match="("
+/crbug-333756098-InvalidStructuredHeader.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match="
+/crbug-333756098-MatchDestFieldIsNotAList.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match="/test/*", match-dest=document
+/crbug-333756098-MatchDestFieldListItemIsNotAString.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match="/test/*", match-dest=(document)
+/crbug-333756098-MatchFieldIsNotAString.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match=test
+/crbug-333756098-NoMatchField.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: id="dict_id"
+/crbug-333756098-TypeFieldIsNotAToken.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match="/test/*", type="raw"
+/crbug-333756098-UnsupportedNavigationRequest.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match="/test/*"
+/crbug-333756098-UnsupportedType.dict
+  Cache-Control: public, max-age=100
+  Use-As-Dictionary: match="/test/*", type=unsupported

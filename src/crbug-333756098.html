@@ -4,9 +4,9 @@
     <meta charset=utf-8>
     <title>Repro for crbug.com/333756098</title>
     <script>
-      function addIframe(errorType) {
+      function addIframe(path) {
         const iframe = document.createElement('iframe');
-        iframe.src = './dictionary?'  + errorType;
+        iframe.src = path;
         iframe.width = '1px';
         iframe.height = '1px';
         iframe.addEventListener('load', () => {
@@ -16,10 +16,11 @@
       }
       function buttonClicked() {
         const errorType = document.getElementById('error-type').value;
+        const path = './crbug-333756098-' + errorType + '.dict';
         if (errorType == 'UnsupportedNavigationRequest') {
-          addIframe(errorType);
+          addIframe(path);
         } else {
-          fetch('./dictionary?' + errorType);
+          fetch(path);
         }
       }
     </script>

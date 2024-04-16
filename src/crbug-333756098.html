@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Repro for crbug.com/333756098</title>
+    <script>
+      function addIframe(errorType) {
+        const iframe = document.createElement('iframe');
+        iframe.src = './dictionary?'  + errorType;
+        iframe.width = '1px';
+        iframe.height = '1px';
+        iframe.addEventListener('load', () => {
+          iframe.remove();
+        });
+        document.body.appendChild(iframe);
+      }
+      function buttonClicked() {
+        const errorType = document.getElementById('error-type').value;
+        if (errorType == 'UnsupportedNavigationRequest') {
+          addIframe(errorType);
+        } else {
+          fetch('./dictionary?' + errorType);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/333756098</h1>
+    <p>
+      This illustrates how to debug dictionary registration failure in Chrome DevTools front-end.
+    </p>
+
+    <h2>Steps</h2>
+    <p>
+      <ol>
+        <li>Open DevTools</li>
+        <li>Select error type: 
+          <select id="error-type">
+            <option value="ExpiredResponse">ExpiredResponse</option>
+            <option value="IdFieldIsNotAString">IdFieldIsNotAString</option>
+            <option value="IdFieldTooLong">IdFieldTooLong</option>
+            <option value="InvalidMatchField">InvalidMatchField</option>
+            <option value="InvalidStructuredHeader">InvalidStructuredHeader</option>
+            <option value="MatchDestFieldIsNotAList">MatchDestFieldIsNotAList</option>
+            <option value="MatchDestFieldListItemIsNotAString">MatchDestFieldListItemIsNotAString</option>
+            <option value="MatchFieldIsNotAString">MatchFieldIsNotAString</option>
+            <option value="NoMatchField">NoMatchField</option>
+            <option value="TypeFieldIsNotAToken">TypeFieldIsNotAToken</option>
+            <option value="UnsupportedNavigationRequest">UnsupportedNavigationRequest</option>
+            <option value="UnsupportedType">UnsupportedType</option>
+          </select>
+        </li>
+        <li>Click <button onclick="buttonClicked()">this button</button>.</li>
+        <li>See DevTools Issues tab for the error message.</li>
+      </ol>
+    </p>
+  </body>
+</html>

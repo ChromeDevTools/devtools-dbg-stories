@@ -4,9 +4,6 @@
 /crbug-333756098-IdFieldIsNotAString.dict
   Cache-Control: public, max-age=100
   Use-As-Dictionary: match="/test/*", id=dict_id
-/crbug-333756098-IdFieldTooLong.dict
-  Cache-Control: public, max-age=100
-  Use-As-Dictionary: match="/test/*", id=dict_id
 /crbug-333756098-InvalidMatchField.dict
   Cache-Control: public, max-age=100
   Use-As-Dictionary: match="("

@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset=utf-8>
+    <meta charset="utf-8">
     <title>Repro for crbug.com/333756098</title>
     <script>
+      const HOST_NAME = (new URL(location.href)).hostname;
+      const CROSS_ORIGIN_HOST = 'shared-dictionary-errors.glitch.me';
+      
       function addIframe(path) {
         const iframe = document.createElement('iframe');
         iframe.src = path;
@@ -14,21 +17,68 @@
         });
         document.body.appendChild(iframe);
       }
+      function addScript(path) {
+        const script = document.createElement('script');
+        script.src = path;
+        document.body.appendChild(script);
+      }
       function buttonClicked() {
         const errorType = document.getElementById('error-type').value;
-        const path = './crbug-333756098-' + errorType + '.dict';
-        if (errorType == 'UnsupportedNavigationRequest') {
-          addIframe(path);
-        } else {
-          fetch(path);
+        const path = `/crbug-333756098-dict-${errorType}.dict`;
+        switch (errorType) {
+          case 'UseErrorCrossOriginNoCorsRequest':
+            fetch(`https://${CROSS_ORIGIN_HOST}${path}`);
+            return;
+          case 'NavigationRequest':
+            addIframe(path);
+            return;
+          case 'NonSecureContext':
+            alert(`Please go to "http://${CROSS_ORIGIN_HOST}/load_dict.html"`);
+            return;
+          case 'CossOriginNoCorsRequest':
+            addScript(`https://${CROSS_ORIGIN_HOST}${path}`);
+            return;
+          default:
         }
+        fetch(path);
+      }
+      function additionalButtonClicked() {
+        const errorType = document.getElementById('error-type').value;
+        let path = `/crbug-333756098-target-${errorType}.js`;
+        switch (errorType) {
+          case 'UseErrorDictionaryLoadFailure':
+            fetch(path);
+            return;
+          case 'UseErrorUnexpectedContentDictionaryHeader':
+            fetch(path);
+            return;
+          case 'UseErrorCrossOriginNoCorsRequest':
+            addScript(`https://${CROSS_ORIGIN_HOST}${path}`);
+            return;
+          case 'UseErrorMachingDictionaryNotUsed':
+            fetch(path);
+            break;
+          default:
+        }
+      }
+      function errorTypeChanged() {
+        const errorType = document.getElementById('error-type').value;
+        const deleteDictStep = document.getElementById('delete-dict-step');
+        const additionalStep = document.getElementById('additional-step');
+        deleteDictStep.style.display = 
+            (errorType == 'UseErrorDictionaryLoadFailure') ? '' : 'none';
+        additionalStep.style.display =
+            (errorType == 'UseErrorDictionaryLoadFailure' ||
+             errorType == 'UseErrorUnexpectedContentDictionaryHeader' ||
+             errorType == 'UseErrorCrossOriginNoCorsRequest' ||
+             errorType == 'UseErrorMachingDictionaryNotUsed') ? '' : 'none';
       }
     </script>
   </head>
   <body>
     <h1>Repro for crbug.com/333756098</h1>
     <p>
-      This illustrates how to debug dictionary registration failure in Chrome DevTools front-end.
+      This illustrates how to debug compression dictionary related errors in Chrome DevTools front-end.
     </p>
 
     <h2>Steps</h2>
@@ -36,21 +86,30 @@
       <ol>
         <li>Open DevTools</li>
         <li>Select error type: 
-          <select id="error-type">
+          <select id="error-type" onchange="errorTypeChanged()">
+            <option value="CossOriginNoCorsRequest">CossOriginNoCorsRequest</option>
             <option value="ExpiredResponse">ExpiredResponse</option>
-            <option value="IdFieldIsNotAString">IdFieldIsNotAString</option>
             <option value="InvalidMatchField">InvalidMatchField</option>
             <option value="InvalidStructuredHeader">InvalidStructuredHeader</option>
-            <option value="MatchDestFieldIsNotAList">MatchDestFieldIsNotAList</option>
-            <option value="MatchDestFieldListItemIsNotAString">MatchDestFieldListItemIsNotAString</option>
-            <option value="MatchFieldIsNotAString">MatchFieldIsNotAString</option>
+            <option value="NavigationRequest">NavigationRequest</option>
             <option value="NoMatchField">NoMatchField</option>
-            <option value="TypeFieldIsNotAToken">TypeFieldIsNotAToken</option>
-            <option value="UnsupportedNavigationRequest">UnsupportedNavigationRequest</option>
+            <option value="NonListMatchDestField">NonListMatchDestField</option>
+            <option value="NonSecureContext">NonSecureContext</option>
+            <option value="NonStringIdField">NonStringIdField</option>
+            <option value="NonStringInMatchDestList">NonStringInMatchDestList</option>
+            <option value="NonStringMatchField">NonStringMatchField</option>
+            <option value="NonTokenTypeField">NonTokenTypeField</option>
+            <option value="TooLongIdField">TooLongIdField</option>
             <option value="UnsupportedType">UnsupportedType</option>
+            <option value="UseErrorCrossOriginNoCorsRequest">UseErrorCrossOriginNoCorsRequest</option>
+            <option value="UseErrorDictionaryLoadFailure">UseErrorDictionaryLoadFailure</option>
+            <option value="UseErrorMachingDictionaryNotUsed">UseErrorMachingDictionaryNotUsed</option>
+            <option value="UseErrorUnexpectedContentDictionaryHeader">UseErrorUnexpectedContentDictionaryHeader</option>
           </select>
         </li>
         <li>Click <button onclick="buttonClicked()">this button</button>.</li>
+        <li id="delete-dict-step" style="display:none">Delete "Shared Dictionary/cache/" directory under the <a href="https://chromium.googlesource.com/chromium/src/+/HEAD/docs/user_data_dir.md">User Data Directory</a>.</li>
+        <li id="additional-step" style="display:none">Click <button onclick="additionalButtonClicked()">this button</button>.</li>
         <li>See DevTools Issues tab for the error message.</li>
       </ol>
     </p>

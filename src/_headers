@@ -1,33 +1,51 @@
-/crbug-333756098-ExpiredResponse.dict
+/crbug-333756098-dict-ExpiredResponse.dict
   Cache-Control: no-store
   Use-As-Dictionary: match="/test/*"
-/crbug-333756098-IdFieldIsNotAString.dict
-  Cache-Control: public, max-age=100
-  Use-As-Dictionary: match="/test/*", id=dict_id
-/crbug-333756098-InvalidMatchField.dict
-  Cache-Control: public, max-age=100
+/crbug-333756098-dict-InvalidMatchField.dict
+  Cache-Control: public, max-age=3600
   Use-As-Dictionary: match="("
-/crbug-333756098-InvalidStructuredHeader.dict
-  Cache-Control: public, max-age=100
+/crbug-333756098-dict-InvalidStructuredHeader.dict
+  Cache-Control: public, max-age=3600
   Use-As-Dictionary: match="
-/crbug-333756098-MatchDestFieldIsNotAList.dict
-  Cache-Control: public, max-age=100
-  Use-As-Dictionary: match="/test/*", match-dest=document
-/crbug-333756098-MatchDestFieldListItemIsNotAString.dict
-  Cache-Control: public, max-age=100
-  Use-As-Dictionary: match="/test/*", match-dest=(document)
-/crbug-333756098-MatchFieldIsNotAString.dict
-  Cache-Control: public, max-age=100
-  Use-As-Dictionary: match=test
-/crbug-333756098-NoMatchField.dict
-  Cache-Control: public, max-age=100
-  Use-As-Dictionary: id="dict_id"
-/crbug-333756098-TypeFieldIsNotAToken.dict
-  Cache-Control: public, max-age=100
-  Use-As-Dictionary: match="/test/*", type="raw"
-/crbug-333756098-UnsupportedNavigationRequest.dict
-  Cache-Control: public, max-age=100
+/crbug-333756098-dict-NavigationRequest.dict
+  Cache-Control: public, max-age=3600
   Use-As-Dictionary: match="/test/*"
-/crbug-333756098-UnsupportedType.dict
-  Cache-Control: public, max-age=100
+  Content-Type: text/html
+/crbug-333756098-dict-NoMatchField.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: id="dict_id"
+/crbug-333756098-dict-NonListMatchDestField.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: match="/test/*", match-dest=document
+/crbug-333756098-dict-NonStringIdField.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: match="/test/*", id=dict_id
+/crbug-333756098-dict-NonStringInMatchDestList.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: match="/test/*", match-dest=(document)
+/crbug-333756098-dict-NonStringMatchField.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: match=test
+/crbug-333756098-dict-NonTokenTypeField.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: match="/test/*", type="raw"
+/crbug-333756098-dict-TooLongIdField.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: match="/test/*", id="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+/crbug-333756098-dict-UnsupportedType.dict
+  Cache-Control: public, max-age=3600
   Use-As-Dictionary: match="/test/*", type=unsupported
+/crbug-333756098-dict-UseErrorDictionaryLoadFailure.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: match="/crbug-333756098-target-UseErrorDictionaryLoadFailure*"
+/crbug-333756098-dict-UseErrorMachingDictionaryNotUsed.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: match="/crbug-333756098-target-UseErrorMachingDictionaryNotUsed*"
+/crbug-333756098-dict-UseErrorUnexpectedContentDictionaryHeader.dict
+  Cache-Control: public, max-age=3600
+  Use-As-Dictionary: match="/crbug-333756098-target-UseErrorUnexpectedContentDictionaryHeader*"
+/crbug-333756098-target-UseErrorDictionaryLoadFailure.js
+  Content-Encoding: br-d
+  Content-Dictionary: :fg0h2HgHv+HZ5V2xz/9Oki8t5s0xHguxkf711Jd+JCk=:
+/crbug-333756098-target-UseErrorUnexpectedContentDictionaryHeader.js
+  Content-Encoding: br-d

@@ -45,7 +45,6 @@
   Cache-Control: public, max-age=3600
   Use-As-Dictionary: match="/crbug-333756098-target-UseErrorUnexpectedContentDictionaryHeader*"
 /crbug-333756098-target-UseErrorDictionaryLoadFailure.js
-  Content-Encoding: br-d
-  Content-Dictionary: :fg0h2HgHv+HZ5V2xz/9Oki8t5s0xHguxkf711Jd+JCk=:
+  Content-Encoding: dcb
 /crbug-333756098-target-UseErrorUnexpectedContentDictionaryHeader.js
-  Content-Encoding: br-d
+  Content-Encoding: dcb

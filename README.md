@@ -4,6 +4,42 @@
 
 This repository contains a couple of demos for core debugging stories, that need to be supported by DevTools to provide a fundamental, seamless debugging experience.
 
+## Creating demos (for crbugs)
+
+Demo projects and repros should be pushed to [ChromeDevTools/devtools-dbg-stories],
+and will then automatically be available on [devtools-dbg-stories.netlify.app].
+
+When creating a repro for a [crbug](https://crbug.com), the recommended
+workflow is as follows:
+
+1.  Create your own
+    [fork](https://github.com/ChromeDevTools/devtools-dbg-stories/fork) on
+    GitHub.
+2.  Check out the fork locally.
+
+    ```
+    git clone git@github.com:user/devtools-dbg-stories.git
+    git remote add upstream https://github.com/ChromeDevTools/devtools-dbg-stories.git
+    ```
+
+    and create a feature branch.
+
+3.  Follow the steps for simple test cases.
+
+    ```
+    npm install
+    npm start
+    ```
+
+    This will serve the examples at http://localhost:8000.
+
+4.  Create a new file `src/crbug-ID.html` (and other resources that are
+    necessary), where `ID` refers to the bug number, and add a link to the
+    `crbug-ID.html` file to the `src/index.html`.
+
+5.  Once you are happy with your repro, push it to your fork and send a pull
+    request to the main repository.
+
 ## Usage
 
 ### TypeScript Projects
@@ -138,3 +174,6 @@ npm start
 ```
 
 afterwards point your browser to [http://localhost:8000](http://localhost:8000).
+
+  [ChromeDevTools/devtools-dbg-stories]: https://github.com/ChromeDevTools/devtools-dbg-stories
+  [devtools-dbg-stories.netlify.app]: https://devtools-dbg-stories.netlify.app

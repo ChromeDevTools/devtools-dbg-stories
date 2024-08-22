@@ -15,7 +15,7 @@ workflow is as follows:
 1.  Create your own
     [fork](https://github.com/ChromeDevTools/devtools-dbg-stories/fork) on
     GitHub.
-2.  Checkout the fork locally.
+2.  Check out the fork locally.
 
     ```
     git clone git@github.com:user/devtools-dbg-stories.git

@@ -9,7 +9,7 @@ This repository contains a couple of demos for core debugging stories, that need
 Demo projects and repros should be pushed to [ChromeDevTools/devtools-dbg-stories],
 and will then automatically be available on [devtools-dbg-stories.netlify.app].
 
-When creating a repro for a a [crbug](https://crbug.com), the recommended
+When creating a repro for a [crbug](https://crbug.com), the recommended
 workflow is as follows:
 
 1.  Create your own

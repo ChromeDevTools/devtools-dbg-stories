@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      li > button {
+        margin-bottom: 5px;
+      }
+    </style>
+    <script type="application/javascript" src="crbug-371503351.js" defer></script>
+    <title>Repro for crbug.com/371503351 (Reduce network error noise in the DevTools Console)</title>
+  </head>
+  <body>
+    <h1>Repro for crbug.com/371503351 (Reduce network error noise in the DevTools Console)</h1>
+
+    <p>
+      This demo page contains a bunch of examples for error messages generated
+      by <code>XMLHttpRequest</code> or <code>fetch</code> APIs
+      (<a href="https://goo.gle/devtools-reduce-network-noise-design">Design Document</a>).
+    </p>
+
+    <h2>Steps</h2>
+
+    <p>
+      Open the Console panel in DevTools, click on the appropriate buttons
+      below, and observe the messages logged to the console.
+    </p>
+
+    <h3>CORS error scenarios</h3>
+    <ul>
+      <li><button onclick="corsCaughtFetch()">Caught <code>fetch</code> CORS error</button></li>
+      <li><button onclick="corsUncaughtFetch()">Uncaught <code>fetch</code> CORS error</button></li>
+      <li><button onclick="corsCaughtXHRSync()">Caught sync <code>XMLHttpRequest</code> CORS error</button></li>
+      <li><button onclick="corsUncaughtXHRSync()">Uncaught sync <code>XMLHttpRequest</code> CORS error</button></li>
+      <li><button onclick="corsXHRAsyncWithError()">Async <code>XMLHttpRequest</code> w/ <code>onerror</code> CORS error</button></li>
+      <li><button onclick="corsXHRAsyncWithoutError()">Async <code>XMLHttpRequest</code> w/o <code>onerror</code> CORS error</button></li>
+    </ul>
+
+    <h3>404 error response scenarios</h3>
+    <ul>
+      <li><button onclick="http404FetchWithOkRead()"><code>fetch</code> 404 response w/ reading <code>ok</code></li>
+      <li><button onclick="http404FetchWithStatusRead()"><code>fetch</code> 404 response w/ reading <code>status</code></li>
+      <li><button onclick="http404FetchWithStatusTextRead()"><code>fetch</code> 404 response w/ reading <code>statusText</code></li>
+      <li><button onclick="http404FetchWithoutOkOrStatusOrStatusTextRead()"><code>fetch</code> 404 response w/o reading <code>ok</code>, <code>status</code>, or <code>statusText</code></li>
+    </ul>
+
+    <h2>Other demos</h2>
+    <ol>
+      <li><a href="https://crbug-124534.glitch.me/">crbug-124534.glitch.me</a></li>
+      <li><a href="https://cors-errors.glitch.me/">cors-errors.glitch.me</a></li>
+      <li><a href="https://jec-cors-demo.glitch.me/">jec-cors-demo.glitch.me</a></li>
+    </ol>
+  </body>
+</html>
